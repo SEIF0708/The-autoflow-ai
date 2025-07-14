@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoFlow AI - Supercharge Your E-commerce</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: #0a0a0a;
+            padding-top: 64px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            margin: 40px 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 150, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            height: 100dvh;
+            margin: 0;
+            border-radius: 0;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+
+
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Optical Blobs */
+        .optical-waves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            pointer-events: auto;
+            transform-origin: center;
+            overflow: visible;
+        }
+
+        .blob::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.8) 0%, rgba(0, 150, 255, 0.4) 50%, transparent 100%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .blob::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(ellipse at center, rgba(0, 150, 255, 0.6) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Blob positions and animations */
+        .blob[data-blob="1"] {
+            left: 15%;
+            top: 20%;
+            transform: scale(1.2);
+            animation: float1 8s ease-in-out infinite;
+            --original-scale: 1.2;
+        }
+
+        .blob[data-blob="2"] {
+            left: 75%;
+            top: 30%;
+            transform: scale(0.9);
+            animation: float2 10s ease-in-out infinite;
+            --original-scale: 0.9;
+        }
+
+        .blob[data-blob="3"] {
+            left: 25%;
+            top: 50%;
+            transform: scale(1.4);
+            animation: float3 12s ease-in-out infinite;
+            --original-scale: 1.4;
+        }
+
+        .blob[data-blob="4"] {
+            left: 80%;
+            top: 60%;
+            transform: scale(0.8);
+            animation: float4 9s ease-in-out infinite;
+            --original-scale: 0.8;
+        }
+
+        .blob[data-blob="5"] {
+            left: 10%;
+            top: 80%;
+            transform: scale(1.1);
+            animation: float5 11s ease-in-out infinite;
+            --original-scale: 1.1;
+        }
+
+        .blob[data-blob="6"] {
+            left: 65%;
+            top: 85%;
+            transform: scale(1.3);
+            animation: float6 7s ease-in-out infinite;
+            --original-scale: 1.3;
+        }
+
+        .blob[data-blob="7"] {
+            left: 45%;
+            top: 15%;
+            transform: scale(0.7);
+            animation: float7 13s ease-in-out infinite;
+            --original-scale: 0.7;
+        }
+
+        .blob[data-blob="8"] {
+            left: 90%;
+            top: 70%;
+            transform: scale(1.0);
+            animation: float8 6s ease-in-out infinite;
+            --original-scale: 1.0;
+        }
+
+        /* Hover Effects */
+        .blob:hover {
+            background: rgba(0, 150, 255, 0.9);
+            box-shadow:
+                0 0 25px rgba(0, 150, 255, 0.8),
+                0 0 35px rgba(0, 150, 255, 0.6),
+                0 0 45px rgba(0, 150, 255, 0.4);
+            transform: scale(1.5);
+        }
+
+        .blob:hover::before {
+            opacity: 1;
+        }
+
+        .blob:hover::after {
+            opacity: 1;
+        }
+
+        /* Floating animations */
+        @keyframes float1 {
+
+            0%,
+            100% {
+                transform: scale(1.2) translateY(0px);
+            }
+
+            50% {
+                transform: scale(1.2) translateY(-20px);
+            }
+        }
+
+        @keyframes float2 {
+
+            0%,
+            100% {
+                transform: scale(0.9) translateY(0px);
+            }
+
+            50% {
+                transform: scale(0.9) translateY(15px);
+            }
+        }
+
+        @keyframes float3 {
+
+            0%,
+            100% {
+                transform: scale(1.4) translateY(0px);
+            }
+
+            50% {
+                transform: scale(1.4) translateY(-25px);
+            }
+        }
+
+        @keyframes float4 {
+
+            0%,
+            100% {
+                transform: scale(0.8) translateY(0px);
+            }
+
+            50% {
+                transform: scale(0.8) translateY(10px);
+            }
+        }
+
+        @keyframes float5 {
+
+            0%,
+            100% {
+                transform: scale(1.1) translateY(0px);
+            }
+
+            50% {
+                transform: scale(1.1) translateY(-30px);
+            }
+        }
+
+        @keyframes float6 {
+
+            0%,
+            100% {
+                transform: scale(1.3) translateY(0px);
+            }
+
+            50% {
+                transform: scale(1.3) translateY(20px);
+            }
+        }
+
+        @keyframes float7 {
+
+            0%,
+            100% {
+                transform: scale(0.7) translateY(0px);
+            }
+
+            50% {
+                transform: scale(0.7) translateY(-15px);
+            }
+        }
+
+        @keyframes float8 {
+
+            0%,
+            100% {
+                transform: scale(1.0) translateY(0px);
+            }
+
+            50% {
+                transform: scale(1.0) translateY(25px);
+            }
+        }
+
+
+
+        .hero-buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button-secondary {
+            background: linear-gradient(45deg, #24c6dc, #5433ff) !important;
+        }
+
+        @media (max-width: 700px) {
+            .hero {
+                min-height: 90vh;
+                height: 90dvh;
+                padding: 0;
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #0096ff, #00d4ff);
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 150, 255, 0.4);
+            animation: pulse 2s infinite;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 150, 255, 0.6);
+            border-color: rgba(0, 150, 255, 0.6);
+        }
+
+        .consultation-section {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            text-align: center;
+            color: #ffffff;
+            border: 1px solid rgba(0, 150, 255, 0.2);
+        }
+
+        .consultation-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .consultation-section p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: #b0b0b0;
+        }
+
+        .call-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #0096ff, #00d4ff);
+            color: white;
+            padding: 20px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 150, 255, 0.4);
+            margin: 10px;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+        }
+
+        .call-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 150, 255, 0.6);
+            border-color: rgba(0, 150, 255, 0.6);
+        }
+
+
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .review-card {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 150, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 150, 255, 0.1);
+        }
+
+        .stars {
+            color: #f39c12;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+
+
+
+
+        /* Stats Section */
+        .stats-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            border: 1px solid rgba(0, 150, 255, 0.1);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stats-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #ffffff;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 150, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 150, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 150, 255, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0096ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+        }
+
+        .testimonial {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            position: relative;
+            border: 1px solid rgba(0, 150, 255, 0.1);
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-size: 4rem;
+            color: #0096ff;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+        }
+
+        .testimonial-author {
+            margin-top: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            font-style: normal;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            background-color: #ccc;
+            border-radius: 34px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: 0.4s;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+        }
+
+        input:checked+.slider {
+            background-color: #667eea;
+        }
+
+        input:checked+.slider::before {
+            transform: translateX(26px);
+        }
+
+        /* Active Plan Effect */
+        .pricing-card.active {
+            border-color: #00e0b4;
+            box-shadow: 0 0 20px rgba(0, 224, 180, 0.4);
+        }
+
+        /* Featured stays distinct */
+        .pricing-card.featured.active {
+            border-color: #ffcc00;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.4);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            border: 1px solid rgba(0, 150, 255, 0.1);
+        }
+
+        .how-it-works-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .how-it-works-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #ffffff;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .step-card {
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #0096ff, #00d4ff);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .step-description {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 150, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        .footer-copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+
+
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .phone-mockup {
+                width: 200px;
+                height: 400px;
+                position: relative;
+                margin: 2rem auto;
+            }
+
+            .conversion-badge {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin: 1rem auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pricing-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            border: 1px solid rgba(0, 150, 255, 0.1);
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .toggle-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            font-weight: 600;
+            color: #b0b0b0;
+        }
+
+        .toggle-label {
+            font-size: 1.1rem;
+            user-select: none;
+        }
+
+        /* Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            cursor: pointer;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 30px;
+            transition: 0.4s;
+        }
+
+        .slider::before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        input:checked+.slider {
+            background-color: #667eea;
+        }
+
+        input:checked+.slider::before {
+            transform: translateX(24px);
+        }
+
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Pricing Card */
+        .pricing-card {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 2.5rem 2rem 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 150, 255, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid rgba(0, 150, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #ffffff;
+        }
+
+        .pricing-card:hover {
+            border-color: #0096ff;
+            box-shadow: 0 25px 50px rgba(0, 150, 255, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.featured {
+            border-color: #0096ff;
+            box-shadow: 0 25px 50px rgba(0, 150, 255, 0.4);
+            transform: scale(1.05);
+            z-index: 1;
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ffbf00;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 6px 14px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 5px 15px rgba(255, 191, 0, 0.4);
+        }
+
+        .plan-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0096ff;
+            margin-bottom: 2rem;
+        }
+
+        .price-number {
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .price-number.animating {
+            color: #4f46e5;
+            transform: scale(1.1);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .currency {
+            font-size: 1.1rem;
+            font-weight: 600;
+            vertical-align: top;
+            margin-right: 3px;
+            color: #444;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 2rem;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .plan-features li {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #b0b0b0;
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .plan-features li::before {
+            content: "✔️";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+            line-height: 1;
+            color: #0096ff;
+        }
+
+        /* Button */
+        .plan-button {
+            background: linear-gradient(45deg, #0096ff, #00d4ff);
+            color: white;
+            font-weight: 700;
+            padding: 14px 0;
+            border-radius: 50px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            letter-spacing: 0.03em;
+            user-select: none;
+            display: block;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 150, 255, 0.4);
+            border: 1px solid rgba(0, 150, 255, 0.3);
+        }
+
+        .plan-button:hover {
+            background: linear-gradient(45deg, #0080ff, #00b3ff);
+            box-shadow: 0 15px 40px rgba(0, 150, 255, 0.6);
+            border-color: rgba(0, 150, 255, 0.6);
+        }
+
+        /* Active Card Style */
+        .pricing-card.active {
+            border-color: #00e0b4;
+            box-shadow: 0 0 20px rgba(0, 224, 180, 0.4);
+        }
+
+        .expected-results {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .result-card {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            border: 1px solid rgba(0, 150, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .result-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0096ff;
+            margin-bottom: 10px;
+        }
+
+        .result-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .result-card p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+
+        .guarantee-box {
+            background: linear-gradient(135deg, #0096ff, #00d4ff);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            margin-top: 60px;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+        }
+
+        .guarantee-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .guarantee-box p {
+            font-size: 1.2rem;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .pricing-title {
+                font-size: 2rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .toggle-container {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Blur-in animation for hero h1 */
+        .blur-animate-word {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(-50px);
+            transition: opacity 0.6s cubic-bezier(.4, 2, .3, 1), filter 0.6s cubic-bezier(.4, 2, .3, 1), transform 0.6s cubic-bezier(.4, 2, .3, 1);
+        }
+
+        .blur-animate-word.visible {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translateY(0);
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 150, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0096ff;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            display: inline-block;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.08rem;
+            font-weight: 500;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus {
+            color: #0096ff;
+            border-bottom: 2px solid #0096ff;
+        }
+
+        @media (max-width: 700px) {
+            .nav-container {
+                padding: 0 10px;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-logo {
+                font-size: 1.1rem;
+            }
+        }
+
+
+
+        @media (max-width: 700px) {
+
+            .ai-side,
+            .human-side {
+                font-size: 1.08rem;
+                padding: 12px 8px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .ai-side,
+            .human-side {
+                font-size: 0.98rem;
+                padding: 10px 4px;
+            }
+        }
+
+        /* FAQ Accordion Styles */
+        .faq-section {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            border: 1px solid rgba(0, 150, 255, 0.1);
+        }
+
+        .accordion-container {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+
+        .accordion-item {
+            background: rgba(15, 15, 15, 0.9);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 150, 255, 0.08);
+            border: 2px solid rgba(0, 150, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .accordion-item:hover {
+            border-color: rgba(0, 150, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 150, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .accordion-item.active {
+            border-color: #0096ff;
+            box-shadow: 0 8px 32px rgba(0, 150, 255, 0.2);
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .accordion-header:hover {
+            background: rgba(102, 126, 234, 0.02);
+        }
+
+        .accordion-header:focus {
+            outline: none;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .accordion-title {
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #667eea;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+            color: #4f46e5;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-body {
+            padding: 0 2rem 1.5rem 2rem;
+            color: #6b7280;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .accordion-body p {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 1.25rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .accordion-body {
+                padding: 0 1.5rem 1.25rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .accordion-icon {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .accordion-header {
+                padding: 1rem 1.25rem;
+                font-size: 0.95rem;
+            }
+
+            .accordion-body {
+                padding: 0 1.25rem 1rem 1.25rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Button & Input Animations */
+        .cta-button,
+        .plan-button,
+        .button,
+        .call-button {
+            transition: background 0.2s, box-shadow 0.2s, transform 0.18s cubic-bezier(.4, 1.4, .3, 1);
+        }
+
+        .cta-button:hover,
+        .plan-button:hover,
+        .button:hover,
+        .call-button:hover {
+            transform: scale(1.04) translateY(-2px);
+            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.13);
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            transition: border 0.2s, box-shadow 0.2s, background 0.2s, transform 0.18s cubic-bezier(.4, 1.4, .3, 1);
+        }
+
+        input:focus,
+        textarea:focus {
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.10);
+            transform: scale(1.025);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">AutoFlow AI</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#consultation">Consultation</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="optical-waves">
+            <div class="blob" data-blob="1"></div>
+            <div class="blob" data-blob="2"></div>
+            <div class="blob" data-blob="3"></div>
+            <div class="blob" data-blob="4"></div>
+            <div class="blob" data-blob="5"></div>
+            <div class="blob" data-blob="6"></div>
+            <div class="blob" data-blob="7"></div>
+            <div class="blob" data-blob="8"></div>
+        </div>
+        <div class="container hero-content">
+            <h1 id="hero-animated-h1">L'automatisation simple, rapide, efficace.</h1>
+            <p>Automate, analyze, and grow your business with the power of AI-driven insights and tools.</p>
+            <div class="hero-buttons">
+                <a href="login.html" class="cta-button">Login</a>
+                <a href="signup.html" class="cta-button cta-button-secondary">Sign Up</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Reviews Section -->
+    <section class="section">
+        <div class="container">
+            <h2>⭐ What Our Clients Say</h2>
+            <p class="section-subtitle">Join hundreds of satisfied businesses that transformed their operations with our
+                AI solutions</p>
+
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p><strong>"Incredible results! Our conversion rate increased by 340% in just 2 months. The AI agent
+                            handles customer inquiries better than our previous human team."</strong></p>
+                    <p style="margin-top: 15px; color: #7f8c8d;">- Sarah M., E-commerce Director</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p><strong>"We cut our customer service costs by 75% while improving response times to under 30
+                            seconds. Absolutely game-changing!"</strong></p>
+                    <p style="margin-top: 15px; color: #7f8c8d;">- Ahmed K., Restaurant Chain Owner</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p><strong>"The SMS marketing integration is phenomenal. We're seeing 85% open rates and 45%
+                            click-through rates. Our ROI tripled!"</strong></p>
+                    <p style="margin-top: 15px; color: #7f8c8d;">- Maria L., Marketing Manager</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p><strong>"24/7 availability changed everything. We're capturing leads while we sleep. Revenue
+                            increased by 180% in 6 months."</strong></p>
+                    <p style="margin-top: 15px; color: #7f8c8d;">- Hassan T., Real Estate Agency</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p><strong>"The personalization is incredible. Each customer feels like they're getting VIP
+                            treatment. Customer satisfaction scores went from 6.2 to 9.4!"</strong></p>
+                    <p style="margin-top: 15px; color: #7f8c8d;">- Fatma R., Boutique Owner</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p><strong>"Setup was seamless, results were immediate. Best business investment we've ever made.
+                            Wish we had done this sooner!"</strong></p>
+                    <p style="margin-top: 15px; color: #7f8c8d;">- Omar B., Tech Startup Founder</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free Consultation Section -->
+    <section id="consultation" class="section consultation-section">
+        <div class="container">
+            <h2>🚀 Free Strategy Consultation</h2>
+            <p>Ready to transform your business? Get a personalized consultation and discover how AI automation can
+                revolutionize your operations.</p>
+            <p><strong>📞 Call us directly and speak with our AI automation experts!</strong></p>
+            <a href="tel:+21629710282" class="call-button">📞 Call Now: +216 29 710 282</a>
+            <p style="margin-top: 20px; font-size: 1.1rem; color: #34495e;">
+                ⏰ Available 24/7 | 💬 Immediate Response | 🎯 Tailored Solutions
+            </p>
+        </div>
+    </section>
+
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <h2 class="stats-title">Your Time is Money — Let AutoFlow Save Both</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-number" data-target="12">0</div>
+                    <div class="stat-label">Hours saved per week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-number">TND <span data-target="650">0</span>+</div>
+                    <div class="stat-label">Saved monthly on staff costs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-number">+<span data-target="22">0</span>%</div>
+                    <div class="stat-label">Conversion rate increase</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🤖</div>
+                    <div class="stat-number"><span data-target="95">0</span>%</div>
+                    <div class="stat-label">Response rate with AI chatbot</div>
+                </div>
+            </div>
+            <div class="testimonial">
+                Before AutoFlow AI, we lost customers at checkout. Now, we recover 3 out of 5 abandoned carts.
+                <div class="testimonial-author">– Yassine, Founder of StyleKart.tn</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="pricing-container">
+            <h2 class="pricing-title">Simple Plans That Scale With Your Growth</h2>
+
+            <!-- Pricing Toggle -->
+            <div class="toggle-container">
+                <span class="toggle-label">Monthly</span>
+                <label class="switch">
+                    <input type="checkbox" id="toggleBilling" />
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Yearly <small>(Save 20%)</small></span>
+            </div>
+
+            <div class="pricing-grid" id="pricingCards">
+                <!-- Pricing cards injected by JavaScript -->
+            </div>
+
+            <p style="margin-top: 2rem; color: #666; font-size: 1rem;">
+                💡 Not sure? Start with Free and upgrade anytime!
+            </p>
+        </div>
+    </section>
+
+    <!-- Expected Results Section -->
+    <section class="section expected-results">
+        <div class="container">
+            <h2>🎯 Expected Results & Guaranteed Outcomes</h2>
+            <p class="section-subtitle">Here's what you can expect within the first 90 days</p>
+
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-number">300%</div>
+                    <h3>Conversion Rate Increase</h3>
+                    <p>Our AI agents convert 3x more leads into customers through intelligent follow-ups and
+                        personalized conversations.</p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-number">75%</div>
+                    <h3>Cost Reduction</h3>
+                    <p>Slash your customer service costs while providing superior service quality and 24/7 availability.
+                    </p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-number">24/7</div>
+                    <h3>Never Miss a Lead</h3>
+                    <p>Capture and convert leads around the clock, even while you sleep or during holidays.</p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-number">85%</div>
+                    <h3>SMS Open Rates</h3>
+                    <p>Achieve industry-leading SMS marketing results with AI-optimized messaging and timing.</p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-number">5x</div>
+                    <h3>Faster Response Times</h3>
+                    <p>Instant responses that keep customers engaged and prevent them from going to competitors.</p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-number">90%</div>
+                    <h3>Customer Satisfaction</h3>
+                    <p>Consistently high satisfaction scores through personalized, accurate, and helpful interactions.
+                    </p>
+                </div>
+            </div>
+
+            <div class="guarantee-box">
+                <h3>🏆 30-Day Money-Back Guarantee</h3>
+                <p>If you don't see a minimum 200% ROI within 30 days, we'll refund every penny – no questions asked!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section class="section faq-section">
+        <div class="container">
+            <h2>❓ Frequently Asked Questions</h2>
+            <p class="section-subtitle">Everything you need to know about AutoFlow AI</p>
+
+            <div class="accordion-container">
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                        <span class="accordion-title">How quickly can I see results?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>Most customers see significant improvements within the first 7-14 days. Our AI starts
+                                learning from your first interaction and continuously optimizes based on your specific
+                                business needs and customer behavior patterns.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                        <span class="accordion-title">What platforms do you integrate with?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>We integrate seamlessly with Shopify, WooCommerce, Magento, and custom e-commerce
+                                platforms. We also support WhatsApp Business, Telegram, Facebook Messenger, and all
+                                major SMS providers. Our API allows for custom integrations with any system.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                        <span class="accordion-title">Is there a setup fee or hidden costs?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>No hidden costs! Your monthly subscription includes everything: setup, training,
+                                integration, and ongoing support. We also offer a free consultation to ensure AutoFlow
+                                AI is the right fit for your business before you commit.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                        <span class="accordion-title">Can I customize the AI responses?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>Absolutely! You have full control over your AI's personality, tone, and responses. You
+                                can set brand guidelines, create custom response templates, and even train the AI on
+                                your specific products and services. The AI learns and adapts to your unique business
+                                needs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                        <span class="accordion-title">What happens if I'm not satisfied?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>We offer a 30-day money-back guarantee. If you're not completely satisfied with the
+                                results, we'll refund your entire subscription - no questions asked. We're confident
+                                you'll see the value, but we want you to feel secure in your decision.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" aria-expanded="false">
+                        <span class="accordion-title">Do you provide customer support?</span>
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>Yes! We provide comprehensive support including 24/7 technical support, dedicated account
+                                managers for Pro plans, training sessions, and ongoing optimization. Our team is always
+                                available to help you maximize your ROI and ensure smooth operation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="how-it-works-container">
+            <h2 class="how-it-works-title">Set Up in Minutes – Not Days</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">🔌</div>
+                    <div class="step-title">Connect Your Store</div>
+                    <div class="step-description">Easy integration with Shopify, WooCommerce, or any custom platform
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">✍️</div>
+                    <div class="step-title">Create SMS Flows</div>
+                    <div class="step-description">Choose from templates or create custom automated messaging sequences
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">🤖</div>
+                    <div class="step-title">Enable Chatbot</div>
+                    <div class="step-description">Deploy AI chatbot on your website or social media channels</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">📊</div>
+                    <div class="step-title">Track Performance</div>
+                    <div class="step-description">Monitor real-time analytics and optimize your campaigns</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section consultation-section">
+        <div class="container">
+            <h2>🚀 Ready to Transform Your Business?</h2>
+            <p>Don't let another day pass with inefficient customer service. Join the AI revolution today!</p>
+            <a href="tel:+21629710282" class="call-button">📞 Call Now: +216 29 710 282</a>
+            <p style="margin-top: 30px; font-size: 1.1rem; color: #34495e;">
+                ✅ Free consultation | ✅ Custom strategy | ✅ 30-day guarantee | ✅ Setup in 48 hours
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">AutoFlow AI</div>
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+                <a href="#terms">Terms</a>
+                <a href="#privacy">Privacy</a>
+            </div>
+            <div class="footer-copyright">
+                Made in 🇹🇳 with ❤️ by AutoFlow AI
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pricingData = {
+                monthly: [
+
+                    { name: 'Basic', price: 39, features: ['1,000 SMS/month', 'Basic personalization', 'Standard support', 'Good for small stores'], plan: 'basic' },
+                    { name: 'Standard', price: 119, features: ['4,000 SMS/month', '✔️ Chatbot included', 'Custom automation', 'Advanced analytics', 'Priority support'], plan: 'standard', featured: true },
+                    { name: 'Pro', price: 249, features: ['10,000 SMS/month', '✔️ Full chatbot features', 'Full customization', 'Premium analytics', '24/7 support', 'API access'], plan: 'pro' }
+                ],
+                yearly: [
+
+                    { name: 'Basic', price: 390, features: ['12,000 SMS/year', 'Basic personalization', 'Standard support', 'Good for small stores'], plan: 'basic' },
+                    { name: 'Standard', price: 1190, features: ['48,000 SMS/year', '✔️ Chatbot included', 'Custom automation', 'Advanced analytics', 'Priority support'], plan: 'standard', featured: true },
+                    { name: 'Pro', price: 2490, features: ['120,000 SMS/year', '✔️ Full chatbot features', 'Full customization', 'Premium analytics', '24/7 support', 'API access'], plan: 'pro' }
+                ]
+            };
+
+            function renderPricing(mode = 'monthly') {
+                const container = document.getElementById('pricingCards');
+                container.innerHTML = '';
+                pricingData[mode].forEach(plan => {
+                    const card = document.createElement('div');
+                    card.className = 'pricing-card' + (plan.featured ? ' featured' : '');
+                    card.innerHTML = `
+        ${plan.featured ? '<div class="badge">✨ MOST POPULAR</div>' : ''}
+        <div class="plan-name">${plan.name}</div>
+        <div class="plan-price"><span class="currency">TND</span> <span class="price-number">${plan.price}</span></div>
+        <ul class="plan-features">
+          ${plan.features.map(f => `<li>${f}</li>`).join('')}
+        </ul>
+        <a href="signup.html?plan=${plan.plan}" class="plan-button">Choose ${plan.name}</a>
+      `;
+                    card.onclick = () => {
+                        document.querySelectorAll('.pricing-card').forEach(c => c.classList.remove('active'));
+                        card.classList.add('active');
+                    };
+                    container.appendChild(card);
+                });
+
+                // Add hover animation (must re-bind after rendering)
+                document.querySelectorAll('.pricing-card').forEach(card => {
+                    card.addEventListener('mouseenter', function () {
+                        this.style.transform = 'translateY(-10px) scale(1.02)';
+                    });
+                    card.addEventListener('mouseleave', function () {
+                        this.style.transform = this.classList.contains('featured') ? 'translateY(0) scale(1.05)' : 'translateY(0) scale(1)';
+                    });
+                });
+            }
+
+            function animatePriceChange(fromValue, toValue, element, duration = 1000) {
+                const startTime = performance.now();
+                const difference = toValue - fromValue;
+
+                // Add animating class for visual feedback
+                element.classList.add('animating');
+
+                function updatePrice(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Easing function for smooth animation
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const currentValue = fromValue + (difference * easeOutQuart);
+
+                    element.textContent = Math.round(currentValue);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updatePrice);
+                    } else {
+                        element.textContent = toValue;
+                        // Remove animating class after animation completes
+                        setTimeout(() => {
+                            element.classList.remove('animating');
+                        }, 200);
+                    }
+                }
+
+                requestAnimationFrame(updatePrice);
+            }
+
+            function updatePricingWithAnimation(mode) {
+                const container = document.getElementById('pricingCards');
+                const currentCards = container.querySelectorAll('.pricing-card');
+
+                if (currentCards.length === 0) {
+                    renderPricing(mode);
+                    return;
+                }
+
+                // Get current and new pricing data
+                const currentMode = mode === 'monthly' ? 'yearly' : 'monthly';
+                const currentPrices = pricingData[currentMode];
+                const newPrices = pricingData[mode];
+
+                // Animate each price change
+                currentCards.forEach((card, index) => {
+                    const priceElement = card.querySelector('.price-number');
+                    if (priceElement && newPrices[index]) {
+                        const currentPrice = currentPrices[index].price;
+                        const newPrice = newPrices[index].price;
+
+                        // Add a small delay for staggered animation
+                        setTimeout(() => {
+                            animatePriceChange(currentPrice, newPrice, priceElement, 800);
+                        }, index * 150);
+                    }
+                });
+            }
+
+            // Handle billing toggle
+            const toggle = document.getElementById('toggleBilling');
+            if (toggle) {
+                toggle.addEventListener('change', (e) => {
+                    const mode = e.target.checked ? 'yearly' : 'monthly';
+                    updatePricingWithAnimation(mode);
+                });
+            }
+
+            renderPricing(); // Initial render
+
+            // Stats counter animation
+            function animateCounter(element, target) {
+                let current = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    element.textContent = Math.floor(current);
+                    if (current >= target) {
+                        element.textContent = target;
+                        clearInterval(timer);
+                    }
+                }, 20);
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counters = entry.target.querySelectorAll('[data-target]');
+                        counters.forEach(counter => {
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            animateCounter(counter, target);
+                        });
+                    }
+                });
+            });
+
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) observer.observe(statsSection);
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+
+
+
+
+
+
+            // Optical Blobs Interaction
+            (function () {
+                const blobs = document.querySelectorAll('.blob');
+                const heroElements = document.querySelectorAll('.hero h1, .hero p, .hero .cta-button');
+
+                blobs.forEach(blob => {
+                    // Enhanced hover effect
+                    blob.addEventListener('mouseenter', function () {
+                        this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                        this.style.zIndex = '10';
+                    });
+
+                    // Reset on mouse leave
+                    blob.addEventListener('mouseleave', function () {
+                        this.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                        this.style.zIndex = '1';
+                    });
+
+                    // Click effect
+                    blob.addEventListener('click', function () {
+                        this.style.transform = this.style.transform.replace(/scale\([^)]*\)/g, 'scale(2.0)');
+                        setTimeout(() => {
+                            this.style.transform = this.style.transform.replace(/scale\([^)]*\)/g, 'scale(1.5)');
+                        }, 200);
+                    });
+                });
+
+                // Hero elements hover effect on blobs (excluding buttons)
+                const textElements = document.querySelectorAll('.hero h1, .hero p');
+
+                textElements.forEach(element => {
+                    element.addEventListener('mouseenter', function () {
+                        // Find blobs that are positioned near this element
+                        const rect = this.getBoundingClientRect();
+                        const centerX = rect.left + rect.width / 2;
+                        const centerY = rect.top + rect.height / 2;
+
+                        blobs.forEach(blob => {
+                            const blobRect = blob.getBoundingClientRect();
+                            const blobCenterX = blobRect.left + blobRect.width / 2;
+                            const blobCenterY = blobRect.top + blobRect.height / 2;
+
+                            // Calculate distance between element and blob
+                            const distance = Math.sqrt(
+                                Math.pow(centerX - blobCenterX, 2) +
+                                Math.pow(centerY - blobCenterY, 2)
+                            );
+
+                            // If blob is within 300px of the element, make it glow
+                            if (distance < 300) {
+                                blob.style.background = 'rgba(0, 150, 255, 0.9)';
+                                blob.style.boxShadow =
+                                    '0 0 25px rgba(0, 150, 255, 0.8), ' +
+                                    '0 0 35px rgba(0, 150, 255, 0.6), ' +
+                                    '0 0 45px rgba(0, 150, 255, 0.4)';
+                                blob.style.transform = blob.style.transform.replace(/scale\([^)]*\)/g, 'scale(1.3)');
+                                blob.style.zIndex = '5';
+                            }
+                        });
+                    });
+
+                    element.addEventListener('mouseleave', function () {
+                        // Reset all blobs
+                        blobs.forEach(blob => {
+                            blob.style.background = 'rgba(255, 255, 255, 0.08)';
+                            blob.style.boxShadow = 'none';
+                            blob.style.zIndex = '1';
+                            // Restore original scale from CSS
+                            const dataBlob = blob.getAttribute('data-blob');
+                            const originalScale = getComputedStyle(blob).getPropertyValue('--original-scale') || '1';
+                            blob.style.transform = blob.style.transform.replace(/scale\([^)]*\)/g, `scale(${originalScale})`);
+                        });
+                    });
+                });
+            })();
+
+            // Blur-in animation for hero h1 text
+            (function () {
+                const text = "L'automatisation simple, rapide, efficace.";
+                const h1 = document.getElementById('hero-animated-h1');
+                if (!h1) return;
+                // Split into words and wrap each in a span
+                h1.innerHTML = text.split(' ').map(word => `<span class="blur-animate-word">${word}</span>`).join(' ');
+                const words = h1.querySelectorAll('.blur-animate-word');
+                let animated = false;
+                const observer = new window.IntersectionObserver(
+                    ([entry]) => {
+                        if (entry.isIntersecting && !animated) {
+                            animated = true;
+                            words.forEach((span, i) => {
+                                setTimeout(() => {
+                                    span.classList.add('visible');
+                                }, i * 250);
+                            });
+                            observer.disconnect();
+                        }
+                    },
+                    { threshold: 0.3 }
+                );
+                observer.observe(h1);
+            })();
+
+            // Smooth scroll for nav links
+            document.querySelectorAll('.nav-links a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Accordion functionality
+            const accordionItems = document.querySelectorAll('.accordion-item');
+
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.accordion-icon');
+
+                header.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+
+                    // Close all other accordion items
+                    accordionItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            const otherContent = otherItem.querySelector('.accordion-content');
+                            otherContent.style.maxHeight = '0';
+                        }
+                    });
+
+                    // Toggle current item
+                    if (isActive) {
+                        item.classList.remove('active');
+                        content.style.maxHeight = '0';
+                    } else {
+                        item.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                });
+
+                // Handle keyboard navigation
+                header.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        header.click();
+                    }
+                });
+            });
+
+
+        });
+    </script>
+
+</body>
+
+</html>
